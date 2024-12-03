@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button'
 
 interface SongItemProps {
-    id: number;
+    id: string;
     title: string;
     artists: string;
-    handleSubmit: (id: number) => void;
+    handleSubmit: (id: string) => void;
     canSelect: boolean;
 }
 
