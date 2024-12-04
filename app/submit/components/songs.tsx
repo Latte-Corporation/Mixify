@@ -2,8 +2,9 @@
 
 import { useQuery, useQueryClient } from "react-query";
 import { Song } from "../../shared/song";
-import { SongItem } from "../../shared/song-component";
+import { SongItem } from "../../shared/components/song-component";
 import axios from "axios";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function Songs({ query }: { query: string }) {
   const queryClient = useQueryClient();
@@ -28,7 +29,7 @@ export function Songs({ query }: { query: string }) {
           data.artists.length > 30
             ? data.artists.substring(0, 30) + "..."
             : data.artists,
-        inQueue: data.inQueue,
+        status: data.status,
       }));
     },
     {
@@ -51,7 +52,16 @@ export function Songs({ query }: { query: string }) {
   }
 
   if (status === "loading") {
-    return <span>Loading...</span>;
+    return (
+      <div className="flex flex-col items-start w-full h-full">
+        {Array.from({ length: 20 }).map((_, index) => (
+          <Skeleton
+            key={index}
+            className="px-5 h-[100px] w-[300px] rounded-xl my-4"
+          />
+        ))}
+      </div>
+    );
   }
 
   if (status === "error") {
@@ -60,13 +70,13 @@ export function Songs({ query }: { query: string }) {
 
   return (
     <div className="flex flex-col items-start w-full h-full">
-      <ul className="max-h-40">
+      <ul>
         {data?.map((song: Song) => (
           <SongItem
             key={song.id}
             {...song}
             handleSubmit={handleSubmit}
-            canSelect={song.inQueue !== true}
+            status={song.status}
           />
         ))}
       </ul>

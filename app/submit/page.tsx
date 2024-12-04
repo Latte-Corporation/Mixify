@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-import { Songs } from "./queries/songs";
+import { Songs } from "./components/songs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -27,7 +27,7 @@ export default function SubmitPage() {
     };
 
     return (
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-10 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-6 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             <header className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse">
                 <Input className="peer" onChange={handleInputChange}/>
                 <div className="peer-focus-within:ring-1 peer-focus-within:ring-ring bg-black h-[36px] text-white px-5 flex items-center rounded-l-md">Search:</div>
