@@ -5,4 +5,5 @@ export interface Song {
     genre?: string;
     albumCover?: string;
     inQueue?: boolean;
+    submittedAt?: string;
 }

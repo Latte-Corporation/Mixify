@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { Song } from "../shared/song";
 import axios from "axios";
 import { PendingSongItem } from "../shared/pending-song-component";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function PendingSongs() {
   const queryClient = useQueryClient();
@@ -26,28 +27,48 @@ export function PendingSongs() {
           data.artists.length > 50
             ? data.artists.substring(0, 50) + "..."
             : data.artists,
+        submittedAt: data.submittedAt ?? "now",
       }));
+    },
+    {
+      staleTime: 0, // Data is considered stale immediately after fetching
     }
   );
 
   function handleQueue(id: string) {
-    axios.post("http://localhost:3000/songs/submit/" + id).then(() => {
+    axios.post("http://localhost:3000/songs/approve/" + id).then(() => {
+      queryClient.invalidateQueries("pendingSongs");
+      queryClient.invalidateQueries("queueSongs");
+    });
+  }
+
+  function handleReject(id: string) {
+    axios.post("http://localhost:3000/songs/passed/" + id).then(() => {
       queryClient.invalidateQueries("pendingSongs");
     });
   }
-  
-  return (
-    <div className="flex flex-col items-start w-full h-full">
-      <h2 className="text-2xl font-bold">Pending songs</h2>
-      <ul className="max-h-40">
-        {data?.map((song: Song) => (
-          <PendingSongItem
-            key={song.id}
-            {...song}
-            handleQueue={handleQueue}
-          />
+
+  if (status === "loading") {
+    return (
+      <div>
+        <h2 className="text-2xl font-bold">Pending songs</h2>
+        {Array.from({ length: 20 }).map((_, index) => (
+          <Skeleton key={index} className="px-5 h-[100px] w-[600px] rounded-xl my-4" />
         ))}
-      </ul>
+      </div>
+    );
+  }
+
+  if (status === "error") {
+    return <div>Error: {error.message}</div>;
+  }
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold">Pending songs</h2>
+      {data?.map((song) => (
+        <PendingSongItem key={song.id} {...song} handleQueue={handleQueue} handleReject={handleReject} time={song.submittedAt}/>
+      ))}
     </div>
   );
 }
