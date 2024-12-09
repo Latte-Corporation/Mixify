@@ -7,7 +7,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect } from "react";
 import { LoaderSpinner } from "../../shared/components/spinner";
 import { cn } from "@/lib/utils";
-import { link } from "fs";
 
 export function PendingSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
@@ -23,7 +22,7 @@ export function PendingSongs({ className }: { className?: string }) {
     return () => {
       eventSource.close();
     };
-  }, [queryClient]);
+  }, [queryClient, backendUrl]);
 
   const { status, data, error } = useQuery<Song[], Error>(
     "pendingSongs",
