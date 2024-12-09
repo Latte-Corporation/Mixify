@@ -1,11 +1,8 @@
 'use client'
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input"
-import { Search } from "lucide-react"
-import { Songs } from "./components/songs";
-import Link from "next/link";
+import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import { Songs } from "./components/songs";
 
 export default function SubmitPage() {
     const [search, setSearch] = useState<string>('')

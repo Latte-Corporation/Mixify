@@ -10,7 +10,7 @@ export function QueueSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  const { status, data, error } = useQuery<Song[], Error>(
+  const { status, data } = useQuery<Song[], Error>(
     "queueSongs",
     async () => {
       const response = await axios.get(`${backendUrl}/songs/queue`);

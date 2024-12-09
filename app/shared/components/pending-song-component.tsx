@@ -12,7 +12,7 @@ interface SongItemProps {
     handleReject: (id: string) => void;
 }
 
-export function PendingSongItem({id, link, title, artists, time, handleQueue, handleReject}: SongItemProps) {
+export function PendingSongItem({id, title, artists, time, handleQueue, handleReject}: SongItemProps) {
     return (
         <li key={id} className='flex flex-row items-center px-5 h-[100px] w-[300px] lg:w-[600px] rounded-xl my-4 border hover:border-black justify-between'>
             <div className='flex flex-col pr-5 truncate'>
