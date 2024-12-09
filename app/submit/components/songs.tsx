@@ -8,26 +8,25 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function Songs({ query }: { query: string }) {
   const queryClient = useQueryClient();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const { status, data, error } = useQuery<Song[], Error>(
     ["songs", query],
     async () => {
       if (!query) return [];
-      const response = await axios.get(
-        "http://localhost:3000/spotify/search/" + query
-      );
+      const response = await axios.get(`${backendUrl}/spotify/search/` + query);
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
       return response.data.map((data: Song) => ({
         id: data.id,
         title:
-          data.title.length > 30
-            ? data.title.substring(0, 30) + "..."
+          data.title.length > 40
+            ? data.title.substring(0, 40) + "..."
             : data.title,
         artists:
-          data.artists.length > 30
-            ? data.artists.substring(0, 30) + "..."
+          data.artists.length > 40
+            ? data.artists.substring(0, 40) + "..."
             : data.artists,
         status: data.status,
       }));
@@ -39,9 +38,7 @@ export function Songs({ query }: { query: string }) {
 
   async function handleSubmit(id: string) {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/songs/submit/" + id
-      );
+      const response = await axios.post(`${backendUrl}/songs/submit/` + id);
       if (response.status !== 200 && response.status !== 201) {
         throw new Error("Network response was not ok");
       }

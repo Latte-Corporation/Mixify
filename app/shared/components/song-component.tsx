@@ -5,7 +5,7 @@ interface SongItemProps {
   title: string;
   artists: string;
   handleSubmit: (id: string) => void;
-  status: string;
+  status: string | undefined;
 }
 
 export function SongItem({
@@ -20,9 +20,9 @@ export function SongItem({
       key={id}
       className="flex flex-row items-center px-5 h-[100px] w-[300px] rounded-xl my-4 border hover:border-black justify-between"
     >
-      <div className="flex flex-col pr-5">
-        <p className="font-bold">{title}</p>
-        <p className="text-gray-500">{artists}</p>
+      <div className="flex flex-col pr-4">
+        <p className="font-bold text-sm">{title}</p>
+        <p className="text-gray-500 text-sm">{artists}</p>
       </div>
       {status === "unknown" ? (
         <Button onClick={() => handleSubmit(id)}>Submit</Button>

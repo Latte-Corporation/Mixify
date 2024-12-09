@@ -8,8 +8,8 @@ export default function Dashboard() {
         Dashboard
       </h1>
       <div className="flex flex-row w-full justify-center items-start h-full gap-10">
-        <PendingSongs />
-        <hr className="xl:flex border-r-2 border-black h-full hidden" />
+        <PendingSongs className="flex flex-col"/>
+        <hr className="xl:flex border-r-2 border-gray h-full hidden" />
         <QueueSongs className="hidden xl:flex flex-col" />
       </div>
     </div>

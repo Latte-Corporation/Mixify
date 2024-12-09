@@ -6,4 +6,5 @@ export interface Song {
     albumCover?: string;
     status?: string;
     submittedAt?: string;
+    link: string;
 }

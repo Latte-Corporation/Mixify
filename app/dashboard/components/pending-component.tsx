@@ -7,12 +7,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect } from "react";
 import { LoaderSpinner } from "../../shared/components/spinner";
 import { cn } from "@/lib/utils";
+import { link } from "fs";
 
 export function PendingSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
-    const eventSource = new EventSource("http://localhost:3000/songs/sse");
+    const eventSource = new EventSource(`${backendUrl}/songs/sse`);
 
     eventSource.onmessage = () => {
       queryClient.invalidateQueries("pendingSongs");
@@ -26,7 +28,7 @@ export function PendingSongs({ className }: { className?: string }) {
   const { status, data, error } = useQuery<Song[], Error>(
     "pendingSongs",
     async () => {
-      const response = await axios.get("http://localhost:3000/songs/pending");
+      const response = await axios.get(`${backendUrl}/songs/pending`);
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
@@ -41,6 +43,7 @@ export function PendingSongs({ className }: { className?: string }) {
             ? data.artists.substring(0, 30) + "..."
             : data.artists,
         submittedAt: data.submittedAt ?? "now",
+        link: data.link,
       }));
     },
     {
@@ -49,14 +52,14 @@ export function PendingSongs({ className }: { className?: string }) {
   );
 
   function handleQueue(id: string) {
-    axios.post("http://localhost:3000/songs/approve/" + id).then(() => {
+    axios.post(`${backendUrl}/songs/approve/` + id).then(() => {
       queryClient.invalidateQueries("pendingSongs");
       queryClient.invalidateQueries("queueSongs");
     });
   }
 
   function handleReject(id: string) {
-    axios.post("http://localhost:3000/songs/reject/" + id).then(() => {
+    axios.post(`${backendUrl}/songs/reject/` + id).then(() => {
       queryClient.invalidateQueries("pendingSongs");
     });
   }
@@ -82,17 +85,19 @@ export function PendingSongs({ className }: { className?: string }) {
   return (
     <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
       <h2 className="text-2xl font-bold">Pending songs</h2>
-      {data?.map((song) => (
-        <PendingSongItem
-          key={song.id}
-          {...song}
-          handleQueue={handleQueue}
-          handleReject={handleReject}
-          time={song.submittedAt}
-        />
-      ))}
+        {data?.map((song) => (
+          <ul className="h-[100px] 2xl:w-[600px] rounded-xl py-4" key={song.id}>
+            <PendingSongItem
+              {...song}
+              handleQueue={handleQueue}
+              handleReject={handleReject}
+              time={song.submittedAt}
+              link={song.link}
+            />
+          </ul>
+        ))}
       {data?.length === 0 && (
-        <div className="flex gap-3 py-10">
+        <div className="flex gap-3 py-4">
           <p>Waiting for songs to be submitted...</p>
           <LoaderSpinner />
         </div>

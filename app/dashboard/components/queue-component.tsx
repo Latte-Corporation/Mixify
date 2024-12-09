@@ -4,14 +4,16 @@ import { Song } from "../../shared/song";
 import axios from "axios";
 import { QueuedSongItem } from "../../shared/components/queued-song-component";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 export function QueueSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const { status, data, error } = useQuery<Song[], Error>(
     "queueSongs",
     async () => {
-      const response = await axios.get("http://localhost:3000/songs/queue");
+      const response = await axios.get(`${backendUrl}/songs/queue`);
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
@@ -31,7 +33,7 @@ export function QueueSongs({ className }: { className?: string }) {
   );
 
   function handleDel(id: string) {
-    axios.post("http://localhost:3000/songs/passed/" + id).then(() => {
+    axios.post(`${backendUrl}/songs/passed/` + id).then(() => {
       queryClient.invalidateQueries("pendingSongs");
       queryClient.invalidateQueries("queueSongs");
     });
@@ -52,9 +54,9 @@ export function QueueSongs({ className }: { className?: string }) {
   }
 
   return (
-    <div className={className}>
+    <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
       <h2 className="text-2xl font-bold">Queue songs</h2>
-      <ul className="px-5 h-[100px] 2xl:w-[600px] rounded-xl my-4">
+      <ul className="h-[100px] 2xl:w-[600px] rounded-xl my-4">
         {data?.map((song: Song) => (
           <QueuedSongItem
             key={song.id}
