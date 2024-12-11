@@ -26,17 +26,18 @@ export default function SubmitPage() {
   };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-6 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <header className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse z-20 bg-white">
-        <Input className="peer" onChange={handleInputChange} />
-        <div className="peer-focus-within:ring-1 peer-focus-within:ring-ring bg-black h-[36px] text-white px-5 flex items-center rounded-l-md">
-          {t("search")}:
+    <div className="flex flex-col justify-center items-center min-h-screen pt-24 font-[family-name:var(--font-geist-sans)]">
+        <div className="flex justify-center h-24 w-full fixed top-0 bg-white z-10">
+            <div className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse z-20 w-10/12">
+                <Input className="peer" onChange={handleInputChange} />
+                <div className="peer-focus-within:ring-1 peer-focus-within:ring-ring bg-black h-[36px] text-white px-5 flex items-center rounded-l-md">
+                    {t("search")}:
+                </div>
+            </div>
         </div>
-      </header>
-      <main className="flex flex-col row-start-2 items-center sm:items-start h-full">
+        <div className="flex flex-col row-start-2 items-center sm:items-start h-full">
         <Songs query={query} />
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
+        </div>
     </div>
   );
 }
