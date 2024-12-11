@@ -27,7 +27,7 @@ export default function SubmitPage() {
 
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-6 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-            <header className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse">
+            <header className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse z-20">
                 <Input className="peer" onChange={handleInputChange}/>
                 <div className="peer-focus-within:ring-1 peer-focus-within:ring-ring bg-black h-[36px] text-white px-5 flex items-center rounded-l-md">{t('search')}:</div>
             </header>

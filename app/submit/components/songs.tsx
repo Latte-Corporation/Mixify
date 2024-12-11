@@ -10,7 +10,7 @@ export function Songs({ query }: { query: string }) {
   const queryClient = useQueryClient();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  const { status, data, error } = useQuery<Song[], Error>(
+  const { status, data, error, isFetching } = useQuery<Song[], Error>(
     ["songs", query],
     async () => {
       if (!query) return [];
@@ -74,6 +74,7 @@ export function Songs({ query }: { query: string }) {
             {...song}
             handleSubmit={handleSubmit}
             status={song.status}
+            isFetching={isFetching}
           />
         ))}
       </ul>

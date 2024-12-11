@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import { LoaderSpinner } from "./spinner";
+import { useEffect, useState } from "react";
 
 interface SongItemProps {
   id: string;
@@ -7,6 +9,7 @@ interface SongItemProps {
   artists: string;
   handleSubmit: (id: string) => void;
   status: string | undefined;
+  isFetching: boolean;
 }
 
 export function SongItem({
@@ -15,8 +18,21 @@ export function SongItem({
   artists,
   handleSubmit,
   status,
+  isFetching,
 }: SongItemProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("button");
+
+  useEffect(() => {
+    if (!isFetching) {
+      setIsLoading(false);
+    }
+  }, [isFetching]);
+
+  function handleClick(id: string) {
+    setIsLoading(true);
+    handleSubmit(id);
+  }
 
   return (
     <li
@@ -27,17 +43,32 @@ export function SongItem({
         <p className="font-bold text-sm">{title}</p>
         <p className="text-gray-500 text-sm">{artists}</p>
       </div>
-      {status === "unknown" ? (
-        <Button onClick={() => handleSubmit(id)}>{t("submit")}</Button>
-      ) : status === "pending" ? (
-        <Button disabled className="bg-slate-400">{t("pending")}</Button>
-      ) : status === "queued" ? (
-        <Button disabled className="bg-green-600">{t("queued")}</Button>
-      ) : status === "rejected" ? (
-        <Button disabled className="bg-red-600">{t("rejected")}</Button>
-      ) : status === "passed" && (
-        <Button disabled>{t("passed")}</Button>
-      )}
+      {isLoading ? 
+        <Button disabled>
+          <LoaderSpinner className="w-4"/>
+          {t("loading")}
+        </Button> :
+        status === "unknown" ? (
+          <Button onClick={() => handleClick(id)}>
+            {t("submit")}
+          </Button>
+        ) : status === "pending" ? (
+          <Button disabled className="bg-slate-400">
+            {t("pending")}
+            </Button>
+        ) : status === "queued" ? (
+          <Button disabled className="bg-green-600">
+            {t("queued")}
+            </Button>
+        ) : status === "rejected" ? (
+          <Button disabled className="bg-red-600">
+            {t("rejected")}
+          </Button>
+        ) : status === "passed" && (
+          <Button disabled>
+            {t("passed")}
+            </Button>
+        )}
     </li>
   );
 }

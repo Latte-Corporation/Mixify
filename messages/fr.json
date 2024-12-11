@@ -15,7 +15,8 @@
     "rejected": "Rejeté",
     "queue": "File d'attente",
     "reject": "Rejeter",
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "loading": "Chargement..."
   },
   "dashboard": {
     "title": "Tableau de bord",

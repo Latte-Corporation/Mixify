@@ -15,7 +15,8 @@
     "rejected": "Rejected",
     "queue": "Queue",
     "reject": "Reject",
-    "delete": "Delete"
+    "delete": "Delete",
+    "loading": "Loading..."
   },
   "dashboard": {
     "title": "Dashboard",
