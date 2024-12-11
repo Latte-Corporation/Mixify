@@ -2,7 +2,7 @@ import {getRequestConfig} from 'next-intl/server';
 
 export default getRequestConfig(async () => {
   // Use the navigator's language
-  const locale = (navigator.language || 'en').split('-')[0];
+  const locale = (navigator.language || 'fr').split('-')[0];
 
   return {
     locale,

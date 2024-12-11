@@ -16,7 +16,7 @@ interface SongItemProps {
 export function PendingSongItem({id, title, artists, time, handleQueue, handleReject}: SongItemProps) {
     const t = useTranslations('button');
     return (
-        <li key={id} className='flex flex-row items-center px-5 h-[100px] w-[300px] lg:w-[600px] rounded-xl my-4 border hover:border-black justify-between'>
+        <div className='flex flex-row items-center px-5 h-[100px] w-[300px] lg:w-[600px] rounded-xl my-4 border hover:border-black justify-between'>
             <div className='flex flex-col pr-5 truncate'>
                 <p className='font-bold'>{title}</p>
                 <p className='text-gray-500'>{artists}</p>
@@ -28,6 +28,6 @@ export function PendingSongItem({id, title, artists, time, handleQueue, handleRe
                 <Button className="block lg:hidden" onClick={() => handleQueue(id)}><Plus/></Button>
                 <Button className="block lg:hidden" onClick={() => handleReject(id)}><Minus/></Button>
             </div>
-        </li>
+        </div>
     )
 }
