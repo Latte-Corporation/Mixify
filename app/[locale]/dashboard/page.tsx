@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
-import { PendingSongs } from "../../components/pending-component";
-import { QueueSongs } from "../../components/queue-component";
+import { PendingSongs } from "@/components/pending-component";
+import { QueueSongs } from "@/components/queue-component";
 
 export default function Dashboard() {
   const t = useTranslations("dashboard");
