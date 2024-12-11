@@ -10,10 +10,10 @@
   "button": {
     "submit": "Soumettre",
     "pending": "En attente",
-    "queued": "En file d'attente",
+    "queued": "Accepté",
     "passed": "Passé",
     "rejected": "Rejeté",
-    "queue": "File d'attente",
+    "queue": "Accepter",
     "reject": "Rejeter",
     "delete": "Supprimer",
     "loading": "Chargement..."
