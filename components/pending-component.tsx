@@ -84,7 +84,7 @@ export function PendingSongs({ className }: { className?: string }) {
   }
 
   return (
-    <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
+    <div className={cn("min-w-[300px] lg:min-w-[600px] flex flex-col items-center", className)}>
       <h2 className="text-2xl font-bold pb-5">{t("pending-list")}</h2>
       {data?.map((song) => (
           <PendingSongItem

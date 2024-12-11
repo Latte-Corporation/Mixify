@@ -5,10 +5,23 @@ import { Song } from "../app/(resources)/shared/song";
 import { SongItem } from "./song-component";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect } from "react";
 
 export function Songs({ query }: { query: string }) {
   const queryClient = useQueryClient();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+  useEffect(() => {
+    const eventSource = new EventSource(`${backendUrl}/songs/status`);
+
+    eventSource.onmessage = () => {
+      queryClient.invalidateQueries(["songs", query]);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, [queryClient, backendUrl, query]);
 
   const { status, data, error, isFetching } = useQuery<Song[], Error>(
     ["songs", query],
