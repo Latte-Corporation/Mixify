@@ -1,11 +1,11 @@
 "use client";
 import { useQuery, useQueryClient } from "react-query";
-import { Song } from "../../shared/song";
+import { Song } from "../app/(resources)/shared/song";
 import axios from "axios";
-import { PendingSongItem } from "../../shared/components/pending-song-component";
+import { PendingSongItem } from "./pending-song-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect } from "react";
-import { LoaderSpinner } from "../../shared/components/spinner";
+import { LoaderSpinner } from "./spinner";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
@@ -86,17 +86,17 @@ export function PendingSongs({ className }: { className?: string }) {
   return (
     <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
       <h2 className="text-2xl font-bold">{t("pending-list")}</h2>
-        {data?.map((song) => (
-          <ul className="h-[100px] 2xl:w-[600px] rounded-xl py-4" key={song.id}>
-            <PendingSongItem
-              {...song}
-              handleQueue={handleQueue}
-              handleReject={handleReject}
-              time={song.submittedAt}
-              link={song.link}
-            />
-          </ul>
-        ))}
+      {data?.map((song) => (
+        <ul className="h-[100px] 2xl:w-[600px] rounded-xl py-4" key={song.id}>
+          <PendingSongItem
+            {...song}
+            handleQueue={handleQueue}
+            handleReject={handleReject}
+            time={song.submittedAt}
+            link={song.link}
+          />
+        </ul>
+      ))}
       {data?.length === 0 && (
         <div className="flex gap-3 py-4">
           <p>{t("waiting")}</p>
