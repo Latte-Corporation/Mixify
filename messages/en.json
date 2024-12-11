@@ -12,7 +12,10 @@
     "pending": "Pending",
     "queued": "Queued",
     "passed": "Passed",
-    "rejected": "Rejected"
+    "rejected": "Rejected",
+    "queue": "Queue",
+    "reject": "Reject",
+    "delete": "Delete"
   },
   "dashboard": {
     "title": "Dashboard",

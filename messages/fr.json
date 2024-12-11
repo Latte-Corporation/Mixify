@@ -12,7 +12,10 @@
     "pending": "En attente",
     "queued": "En file d'attente",
     "passed": "Passé",
-    "rejected": "Rejeté"
+    "rejected": "Rejeté",
+    "queue": "File d'attente",
+    "reject": "Rejeter",
+    "delete": "Supprimer"
   },
   "dashboard": {
     "title": "Tableau de bord",
