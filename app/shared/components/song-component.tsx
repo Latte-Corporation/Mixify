@@ -30,11 +30,11 @@ export function SongItem({
       {status === "unknown" ? (
         <Button onClick={() => handleSubmit(id)}>{t("submit")}</Button>
       ) : status === "pending" ? (
-        <Button disabled>{t("pending")}</Button>
+        <Button disabled className="bg-slate-400">{t("pending")}</Button>
       ) : status === "queued" ? (
-        <Button disabled>{t("queued")}</Button>
+        <Button disabled className="bg-green-600">{t("queued")}</Button>
       ) : status === "rejected" ? (
-        <Button disabled>{t("rejected")}</Button>
+        <Button disabled className="bg-red-600">{t("rejected")}</Button>
       ) : status === "passed" && (
         <Button disabled>{t("passed")}</Button>
       )}
