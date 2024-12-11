@@ -1,8 +1,8 @@
 "use client";
 
 import { useQuery, useQueryClient } from "react-query";
-import { Song } from "../../shared/song";
-import { SongItem } from "../../shared/components/song-component";
+import { Song } from "../app/(resources)/shared/song";
+import { SongItem } from "./song-component";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
 

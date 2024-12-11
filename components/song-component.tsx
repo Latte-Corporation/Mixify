@@ -43,32 +43,28 @@ export function SongItem({
         <p className="font-bold text-sm">{title}</p>
         <p className="text-gray-500 text-sm">{artists}</p>
       </div>
-      {isLoading ? 
+      {isLoading ? (
         <Button disabled>
-          <LoaderSpinner className="w-4"/>
+          <LoaderSpinner className="w-4" />
           {t("loading")}
-        </Button> :
-        status === "unknown" ? (
-          <Button onClick={() => handleClick(id)}>
-            {t("submit")}
-          </Button>
-        ) : status === "pending" ? (
-          <Button disabled className="bg-slate-400">
-            {t("pending")}
-            </Button>
-        ) : status === "queued" ? (
-          <Button disabled className="bg-green-600">
-            {t("queued")}
-            </Button>
-        ) : status === "rejected" ? (
-          <Button disabled className="bg-red-600">
-            {t("rejected")}
-          </Button>
-        ) : status === "passed" && (
-          <Button disabled>
-            {t("passed")}
-            </Button>
-        )}
+        </Button>
+      ) : status === "unknown" ? (
+        <Button onClick={() => handleClick(id)}>{t("submit")}</Button>
+      ) : status === "pending" ? (
+        <Button disabled className="bg-slate-400">
+          {t("pending")}
+        </Button>
+      ) : status === "queued" ? (
+        <Button disabled className="bg-green-600">
+          {t("queued")}
+        </Button>
+      ) : status === "rejected" ? (
+        <Button disabled className="bg-red-600">
+          {t("rejected")}
+        </Button>
+      ) : (
+        status === "passed" && <Button disabled>{t("passed")}</Button>
+      )}
     </li>
   );
 }
