@@ -22,6 +22,7 @@
     "title": "Tableau de bord",
     "pending-list": "Musiques en attente d'approbation",
     "queued-list": "Musiques en file d'attente",
-    "waiting": "En attente de soumission de musiques..."
+    "waiting": "En attente de soumission de musiques...",
+    "reset": "Réinitialiser la session"
   }
 }
