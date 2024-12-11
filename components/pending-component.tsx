@@ -72,7 +72,7 @@ export function PendingSongs({ className }: { className?: string }) {
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
             key={index}
-            className="px-5 h-[100px] w-[600px] rounded-xl my-4"
+            className="px-5 h-[100px] w-[300px] lg:w-[600px] rounded-xl my-4"
           />
         ))}
       </div>
@@ -85,17 +85,16 @@ export function PendingSongs({ className }: { className?: string }) {
 
   return (
     <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
-      <h2 className="text-2xl font-bold">{t("pending-list")}</h2>
+      <h2 className="text-2xl font-bold pb-5">{t("pending-list")}</h2>
       {data?.map((song) => (
-        <ul className="h-[100px] 2xl:w-[600px] rounded-xl py-4" key={song.id}>
           <PendingSongItem
+            key={song.id}
             {...song}
             handleQueue={handleQueue}
             handleReject={handleReject}
             time={song.submittedAt}
             link={song.link}
           />
-        </ul>
       ))}
       {data?.length === 0 && (
         <div className="flex gap-3 py-4">

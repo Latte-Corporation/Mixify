@@ -54,17 +54,15 @@ export function QueueSongs({ className }: { className?: string }) {
 
   return (
     <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
-      <h2 className="text-2xl font-bold">{t("queued-list")}</h2>
-      <ul className="h-[100px] 2xl:w-[600px] rounded-xl my-4">
-        {data?.map((song: Song) => (
-          <QueuedSongItem
-            key={song.id}
-            {...song}
-            handleDel={handleDel}
-            time={song.submittedAt}
-          />
-        ))}
-      </ul>
+      <h2 className="text-2xl font-bold pb-5">{t("queued-list")}</h2>
+      {data?.map((song: Song) => (
+        <QueuedSongItem
+          key={song.id}
+          {...song}
+          handleDel={handleDel}
+          time={song.submittedAt}
+        />
+      ))}
     </div>
   );
 }
