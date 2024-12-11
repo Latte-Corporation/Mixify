@@ -7,10 +7,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect } from "react";
 import { LoaderSpinner } from "../../shared/components/spinner";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export function PendingSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const t = useTranslations("dashboard");
 
   useEffect(() => {
     const eventSource = new EventSource(`${backendUrl}/songs/sse`);
@@ -66,7 +68,7 @@ export function PendingSongs({ className }: { className?: string }) {
   if (status === "loading") {
     return (
       <div className={cn("min-w-[600px]", className)}>
-        <h2 className="text-2xl font-bold">Pending songs</h2>
+        <h2 className="text-2xl font-bold">{t("title")}</h2>
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
             key={index}
@@ -83,7 +85,7 @@ export function PendingSongs({ className }: { className?: string }) {
 
   return (
     <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
-      <h2 className="text-2xl font-bold">Pending songs</h2>
+      <h2 className="text-2xl font-bold">{t("pending-list")}</h2>
         {data?.map((song) => (
           <ul className="h-[100px] 2xl:w-[600px] rounded-xl py-4" key={song.id}>
             <PendingSongItem
@@ -97,7 +99,7 @@ export function PendingSongs({ className }: { className?: string }) {
         ))}
       {data?.length === 0 && (
         <div className="flex gap-3 py-4">
-          <p>Waiting for songs to be submitted...</p>
+          <p>{t("waiting")}</p>
           <LoaderSpinner />
         </div>
       )}

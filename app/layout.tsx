@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ReactQueryProvider } from "./react-query-provider";
+import { getLocale, getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,17 +22,25 @@ export const metadata: Metadata = {
 };
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-screen`}
       >
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ReactQueryProvider>
+            {children}
+            </ReactQueryProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,0 +1,23 @@
+{
+  "homepage": {
+    "title": "Welcome",
+    "description": "Press the button below to submit a song, you will be notified when it is added to the playlist.",
+    "submit": "Submit a song"
+  },
+  "submit-page": {
+    "search": "Search"
+  },
+  "button": {
+    "submit": "Submit",
+    "pending": "Pending",
+    "queued": "Queued",
+    "passed": "Passed",
+    "rejected": "Rejected"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "pending-list": "Pending songs",
+    "queued-list": "Queued songs",
+    "waiting": "Waiting for songs to be submitted..."
+  }
+}

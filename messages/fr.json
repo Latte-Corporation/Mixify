@@ -1,0 +1,23 @@
+{
+  "homepage": {
+    "title": "Bienvenue",
+    "description": "Appuyez sur le bouton ci-dessous pour soumettre une chanson, vous serez notifié lorsqu'elle sera ajoutée à la playlist.",
+    "submit": "Soumettre une musique"
+  },
+  "submit-page": {
+    "search": "Rechercher"
+  },
+  "button": {
+    "submit": "Soumettre",
+    "pending": "En attente",
+    "queued": "En file d'attente",
+    "passed": "Passé",
+    "rejected": "Rejeté"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "pending-list": "Musiques en attente d'approbation",
+    "queued-list": "Musiques en file d'attente",
+    "waiting": "En attente de soumission de musiques..."
+  }
+}

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 interface SongItemProps {
   id: string;
@@ -15,6 +16,8 @@ export function SongItem({
   handleSubmit,
   status,
 }: SongItemProps) {
+  const t = useTranslations("button");
+
   return (
     <li
       key={id}
@@ -25,15 +28,15 @@ export function SongItem({
         <p className="text-gray-500 text-sm">{artists}</p>
       </div>
       {status === "unknown" ? (
-        <Button onClick={() => handleSubmit(id)}>Submit</Button>
+        <Button onClick={() => handleSubmit(id)}>{t("submit")}</Button>
       ) : status === "pending" ? (
-        <Button disabled>Pending</Button>
+        <Button disabled>{t("pending")}</Button>
       ) : status === "queued" ? (
-        <Button disabled>Queued</Button>
+        <Button disabled>{t("queued")}</Button>
       ) : status === "rejected" ? (
-        <Button disabled>Rejected</Button>
+        <Button disabled>{t("rejected")}</Button>
       ) : status === "passed" && (
-        <Button disabled>Passed</Button>
+        <Button disabled>{t("passed")}</Button>
       )}
     </li>
   );
