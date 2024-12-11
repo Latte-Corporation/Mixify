@@ -22,6 +22,7 @@
     "title": "Dashboard",
     "pending-list": "Pending songs",
     "queued-list": "Queued songs",
-    "waiting": "Waiting for songs to be submitted..."
+    "waiting": "Waiting for songs to be submitted...",
+    "reset": "Reset the session"
   }
 }
