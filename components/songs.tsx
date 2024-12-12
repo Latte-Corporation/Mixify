@@ -68,7 +68,7 @@ export function Songs({
       }
       await queryClient.invalidateQueries(["songs", query]);
     } catch (error) {
-      console.error("Error submitting song:", error);
+      console.log("Error submitting song:", error);
     }
   }
 

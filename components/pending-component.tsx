@@ -45,6 +45,7 @@ export function PendingSongs({ className }: { className?: string }) {
             : data.artists,
         submittedAt: data.submittedAt ?? "now",
         link: data.link,
+        bpm: data.bpm,
       }));
     },
     {
@@ -94,6 +95,7 @@ export function PendingSongs({ className }: { className?: string }) {
             handleReject={handleReject}
             time={song.submittedAt}
             link={song.link}
+            bpm={song.bpm}
           />
       ))}
       {data?.length === 0 && (
