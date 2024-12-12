@@ -74,7 +74,7 @@ export function Songs({
 
   if (status === "loading") {
     return (
-      <div className="flex flex-col items-start w-10/12 h-full">
+      <div className="flex flex-col w-10/12 h-full">
         <div className="flex flex-col w-full">
           {Array.from({ length: 20 }).map((_, index) => (
             <Skeleton

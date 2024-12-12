@@ -66,7 +66,7 @@ export default function SubmitPage() {
               </div>
           </div>
       </div>
-      <div className="flex flex-col row-start-2 items-center sm:items-start h-full w-full">
+      <div className="flex flex-col row-start-2 items-center h-full w-full">
         <Songs query={query} inCooldown={progress < 600} setInCooldown={setInCooldown}/>
       </div>
       {
