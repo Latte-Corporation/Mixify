@@ -70,7 +70,7 @@ export function SongItem({
           )}
         </div>
         {
-          place && status === "queued" && (
+          !!place && status === "queued" && (
             <>
               <hr className="w-full border-gray-300" />
               <div className="flex flex-row items-center justify-between w-full">
