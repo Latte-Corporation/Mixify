@@ -1,12 +1,12 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { Song } from "../app/(resources)/shared/song";
+import { SkeletonSubmit } from "./skeleton-submit-song";
 import { SongItem } from "./song-component";
-import { useTranslations } from "next-intl";
 
 export function Songs({ 
   query,
@@ -75,12 +75,13 @@ export function Songs({
   if (status === "loading") {
     return (
       <div className="flex flex-col w-10/12 h-full">
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full pt-24">
           {Array.from({ length: 20 }).map((_, index) => (
-            <Skeleton
-              key={index}
-              className="flex flex-col items-center px-5 gap-2 w-full h-20 py-4 rounded-xl my-3"
-            />
+            <SkeletonSubmit key={index} className="flex items-center px-5 gap-2 w-full h-fit py-4 rounded-xl my-3"/>
+            // <Skeleton
+            //   key={index}
+            //   className="flex flex-col items-center px-5 gap-2 w-full h-20 py-4 rounded-xl my-3"
+            // />
           ))}
         </div>
       </div>
