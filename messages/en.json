@@ -5,7 +5,8 @@
     "submit": "Submit a song"
   },
   "submit-page": {
-    "search": "Search"
+    "search": "Search",
+    "cooldown": "Time before next submission..."
   },
   "button": {
     "submit": "Submit",
@@ -16,7 +17,10 @@
     "queue": "Accept",
     "reject": "Reject",
     "delete": "Delete",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "waiting": "Estimated wait time: ",
+    "inqueue": " in queue",
+    "th": "th"
   },
   "dashboard": {
     "title": "Dashboard",

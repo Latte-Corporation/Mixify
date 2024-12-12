@@ -11,6 +11,8 @@ interface SongItemProps {
   status: string | undefined;
   isFetching: boolean;
   place?: number; //place dans la file
+  inCooldown: boolean;
+  setInCooldown: () => void;
 }
 
 export function SongItem({
@@ -21,6 +23,8 @@ export function SongItem({
   status,
   isFetching,
   place,
+  inCooldown,
+  setInCooldown,
 }: SongItemProps) {
   const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("button");
@@ -33,20 +37,25 @@ export function SongItem({
 
   function handleClick(id: string) {
     setIsLoading(true);
+    setInCooldown();
     handleSubmit(id);
   }
 
   return (
     <div
         key={id}
-        className="flex flex-col items-center px-5 gap-2 w-10/12 py-4 rounded-xl my-3 border hover:border-black justify-between"
+        className="flex flex-col items-center px-5 gap-2 w-10/12 py-4 rounded-xl my-3 border justify-between"
       >
         <div className="flex flex-row items-center justify-between w-full">
           <div className="flex flex-col pr-4">
             <p className="font-bold text-sm">{title}</p>
             <p className="text-gray-500 text-sm">{artists}</p>
           </div>
-          {isLoading ? (
+          {inCooldown ? 
+            <Button disabled>
+              {t("submit")}
+            </Button> :
+          isLoading ? (
             <Button disabled>
               <LoaderSpinner className="w-4" />
               {t("loading")}
@@ -74,8 +83,8 @@ export function SongItem({
             <>
               <hr className="w-full border-gray-300" />
               <div className="flex flex-row items-center justify-between w-full">
-                <p className="text-xs"><b className="text-sm">{place}e</b> dans la file</p>
-                <p className="text-xs">attente estimée: <b className="text-sm">{place}min</b></p>
+                <p className="text-xs"><b className="text-sm">{place}{t("th")}</b>{t("inqueue")}</p>
+                <p className="text-xs">{t("waiting")}<b className="text-sm">{place}min</b></p>
               </div>
             </>
           )

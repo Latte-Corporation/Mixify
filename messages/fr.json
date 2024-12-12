@@ -5,7 +5,8 @@
     "submit": "Soumettre une musique"
   },
   "submit-page": {
-    "search": "Rechercher"
+    "search": "Rechercher",
+    "cooldown": "Temps avant prochaine soumission..."
   },
   "button": {
     "submit": "Soumettre",
@@ -16,7 +17,10 @@
     "queue": "Accepter",
     "reject": "Rejeter",
     "delete": "Supprimer",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "waiting": "Temps d'attente estimé: ",
+    "inqueue": " dans la file",
+    "th": "e"
   },
   "dashboard": {
     "title": "Tableau de bord",

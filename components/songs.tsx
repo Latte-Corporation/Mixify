@@ -1,13 +1,21 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
+import axios from "axios";
+import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { Song } from "../app/(resources)/shared/song";
 import { SongItem } from "./song-component";
-import axios from "axios";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect } from "react";
 
-export function Songs({ query }: { query: string }) {
+export function Songs({ 
+  query,
+  inCooldown,
+  setInCooldown
+}: { 
+  query: string 
+  inCooldown: boolean
+  setInCooldown: () => void
+}) {
   const queryClient = useQueryClient();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -69,7 +77,7 @@ export function Songs({ query }: { query: string }) {
           {Array.from({ length: 20 }).map((_, index) => (
             <Skeleton
               key={index}
-              className="flex flex-col items-center px-5 gap-2 w-10/12 h-20 py-4 rounded-xl my-3"
+              className="flex flex-col items-center px-5 gap-2 w-full h-20 py-4 rounded-xl my-3"
             />
           ))}
         </div>
@@ -82,19 +90,35 @@ export function Songs({ query }: { query: string }) {
   }
 
   return (
-    <div className="flex flex-col items-start w-full h-full">
-      <div className="flex flex-col items-center w-full">
-        {data?.map((song: Song) => (
-          <SongItem
-            key={song.id}
-            {...song}
-            handleSubmit={handleSubmit}
-            status={song.status}
-            isFetching={isFetching}
-            place={song.place}
-          />
-        ))}
-      </div>
+    <div className="flex flex-col items-center w-full h-full">
+      {
+        !data &&
+        <div className="flex flex-col w-3/5">
+          <span>
+            <b>No songs found</b>
+          </span>
+          <span>
+            please try again with a different query.
+          </span>
+        </div>
+      }
+      {
+        !!data && data.length !== 0 && 
+        <div className="flex flex-col items-center w-full pt-24">
+          {data?.map((song: Song) => (
+            <SongItem
+              key={song.id}
+              {...song}
+              handleSubmit={handleSubmit}
+              status={song.status}
+              isFetching={isFetching}
+              place={song.place}
+              inCooldown={inCooldown}
+              setInCooldown={setInCooldown}
+            />
+          ))}
+        </div>
+      }
     </div>
   );
 }
