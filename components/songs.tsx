@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { Song } from "../app/(resources)/shared/song";
 import { SongItem } from "./song-component";
+import { useTranslations } from "next-intl";
 
 export function Songs({ 
   query,
@@ -18,6 +19,7 @@ export function Songs({
 }) {
   const queryClient = useQueryClient();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const t = useTranslations("submit-page");
 
   useEffect(() => {
     const eventSource = new EventSource(`${backendUrl}/songs/status`);
@@ -95,10 +97,10 @@ export function Songs({
         !data &&
         <div className="flex flex-col w-3/5">
           <span>
-            <b>No songs found</b>
+            <b>{t("no-song")}</b>
           </span>
           <span>
-            please try again with a different query.
+            {t("search-for-song")}
           </span>
         </div>
       }

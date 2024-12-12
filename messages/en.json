@@ -6,7 +6,9 @@
   },
   "submit-page": {
     "search": "Search",
-    "cooldown": "Time before next submission..."
+    "cooldown": "Time before next submission...",
+    "no-song": "No song found",
+    "search-for-song": "Please use the search bar to find a song"
   },
   "button": {
     "submit": "Submit",

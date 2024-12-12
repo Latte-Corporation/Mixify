@@ -51,16 +51,17 @@ export function SongItem({
             <p className="font-bold text-sm">{title}</p>
             <p className="text-gray-500 text-sm">{artists}</p>
           </div>
-          {inCooldown ? 
-            <Button disabled>
-              {t("submit")}
-            </Button> :
+          {
           isLoading ? (
             <Button disabled>
               <LoaderSpinner className="w-4" />
               {t("loading")}
             </Button>
           ) : !status ? (
+            inCooldown ? 
+            <Button disabled>
+              {t("submit")}
+            </Button> :
             <Button onClick={() => handleClick(id)}>{t("submit")}</Button>
           ) : status === "pending" ? (
             <Button disabled className="bg-slate-400">

@@ -10,19 +10,21 @@ export default function SubmitPage() {
   const [search, setSearch] = useState<string>("");
   const [query, setQuery] = useState<string>("");
   const [progress, setProgress] = useState<number>(() => {
-    // Retrieve progress from local storage or default to 600
-    const savedProgress = localStorage.getItem("progress");
-    return savedProgress ? parseInt(savedProgress, 10) : 600;
+    const savedTimestamp = localStorage.getItem("progressTimestamp");
+    if (savedTimestamp) {
+      const elapsedSeconds = Math.floor((Date.now() - parseInt(savedTimestamp, 10)) / 1000);
+      return Math.min(elapsedSeconds, 600);
+    }
+    return 600;
   });
   const t = useTranslations("submit-page");
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (search) {
-        // Fetch or perform your search action here
         setQuery(search);
       }
-    }, 1000); // Adjust the delay as needed
+    }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [search]);
@@ -35,7 +37,6 @@ export default function SubmitPage() {
     const interval = setInterval(() => {
       setProgress((progress) => {
         const newProgress = progress >= 600 ? 600 : progress + 1;
-        localStorage.setItem("progress", newProgress.toString());
         return newProgress;
       });
     }, 1000);
@@ -43,8 +44,9 @@ export default function SubmitPage() {
   }, []);
 
   function setInCooldown() {
+    const timestamp = Date.now();
+    localStorage.setItem("progressTimestamp", timestamp.toString());
     setProgress(0);
-    localStorage.setItem("progress", "0");
   }
 
   function secondsToText(seconds: number) {
