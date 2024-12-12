@@ -67,12 +67,12 @@ export function PendingSongs({ className }: { className?: string }) {
 
   if (status === "loading") {
     return (
-      <div className={cn("min-w-[600px]", className)}>
+      <div className={cn("w-11/12 lg:w-[600px] flex flex-col h-full", className)}>
         <h2 className="text-2xl font-bold pb-3">{t("pending-list")}</h2>
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
             key={index}
-            className="px-5 h-[100px] w-[300px] lg:w-[600px] rounded-xl my-4"
+            className="flex flex-col items-center px-5 gap-2 w-full py-10 rounded-xl my-3"
           />
         ))}
       </div>
@@ -84,7 +84,7 @@ export function PendingSongs({ className }: { className?: string }) {
   }
 
   return (
-    <div className={cn("min-w-[300px] lg:min-w-[600px] flex flex-col", className)}>
+    <div className={cn("w-11/12 lg:w-[600px] flex flex-col h-full", className)}>
       <h2 className="text-2xl font-bold pb-3">{t("pending-list")}</h2>
       {data?.map((song) => (
           <PendingSongItem

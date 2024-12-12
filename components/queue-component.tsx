@@ -40,12 +40,12 @@ export function QueueSongs({ className }: { className?: string }) {
 
   if (status === "loading") {
     return (
-      <div className={className}>
+      <div className={cn("w-[600px]",className)}>
         <h2 className="text-2xl font-bold pb-3">{t("queued-list")}</h2>
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
             key={index}
-            className="px-5 h-[100px] 2xl:w-[600px] rounded-xl my-4"
+            className="flex flex-col items-center px-5 gap-2 w-full py-10 rounded-xl my-3"
           />
         ))}
       </div>
