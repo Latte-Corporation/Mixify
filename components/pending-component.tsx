@@ -68,7 +68,7 @@ export function PendingSongs({ className }: { className?: string }) {
   if (status === "loading") {
     return (
       <div className={cn("min-w-[600px]", className)}>
-        <h2 className="text-2xl font-bold">{t("title")}</h2>
+        <h2 className="text-2xl font-bold pb-3">{t("pending-list")}</h2>
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
             key={index}
@@ -84,8 +84,8 @@ export function PendingSongs({ className }: { className?: string }) {
   }
 
   return (
-    <div className={cn("min-w-[300px] lg:min-w-[600px] flex flex-col items-center", className)}>
-      <h2 className="text-2xl font-bold pb-5">{t("pending-list")}</h2>
+    <div className={cn("min-w-[300px] lg:min-w-[600px] flex flex-col", className)}>
+      <h2 className="text-2xl font-bold pb-3">{t("pending-list")}</h2>
       {data?.map((song) => (
           <PendingSongItem
             key={song.id}

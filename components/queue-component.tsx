@@ -41,7 +41,7 @@ export function QueueSongs({ className }: { className?: string }) {
   if (status === "loading") {
     return (
       <div className={className}>
-        <h2 className="text-2xl font-bold">{t("queued-list")}</h2>
+        <h2 className="text-2xl font-bold pb-3">{t("queued-list")}</h2>
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
             key={index}
@@ -54,7 +54,7 @@ export function QueueSongs({ className }: { className?: string }) {
 
   return (
     <div className={cn("min-w-[300px] lg:min-w-[600px]", className)}>
-      <h2 className="text-2xl font-bold pb-5">{t("queued-list")}</h2>
+      <h2 className="text-2xl font-bold pb-3">{t("queued-list")}</h2>
       {data?.map((song: Song) => (
         <QueuedSongItem
           key={song.id}

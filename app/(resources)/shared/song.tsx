@@ -7,4 +7,5 @@ export interface Song {
     status?: string;
     submittedAt?: string;
     link: string;
+    place?: number;
 }

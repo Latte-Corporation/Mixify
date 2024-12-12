@@ -13,7 +13,7 @@
     "queued": "Queued",
     "passed": "Passed",
     "rejected": "Rejected",
-    "queue": "Queue",
+    "queue": "Accept",
     "reject": "Reject",
     "delete": "Delete",
     "loading": "Loading..."

@@ -23,10 +23,10 @@ export function PendingSongItem({id, title, artists, time, handleQueue, handleRe
             </div>
             <div className='flex items-center gap-2 pl-5'>
                 <p className='hidden lg:block text-gray-400 text-sm px-2'>{time && new Date(time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
-                <Button className="hidden lg:block" onClick={() => handleQueue(id)}>{t('queue')}</Button>
-                <Button className="hidden lg:block" onClick={() => handleReject(id)}>{t('reject')}</Button>
-                <Button className="block lg:hidden" onClick={() => handleQueue(id)}><Plus/></Button>
-                <Button className="block lg:hidden" onClick={() => handleReject(id)}><Minus/></Button>
+                <Button className="hidden lg:block bg-green-600 hover:bg-green-500" onClick={() => handleQueue(id)}>{t('queue')}</Button>
+                <Button className="hidden lg:block" variant="destructive" onClick={() => handleReject(id)}>{t('reject')}</Button>
+                <Button className="block lg:hidden bg-green-600" onClick={() => handleQueue(id)}><Plus/></Button>
+                <Button className="block lg:hidden" variant="destructive" onClick={() => handleReject(id)}><Minus/></Button>
             </div>
         </div>
     )

@@ -26,18 +26,18 @@ export default function SubmitPage() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen pt-24 font-[family-name:var(--font-geist-sans)]">
-        <div className="flex justify-center h-24 w-full fixed top-0 bg-white z-10">
-            <div className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse z-20 w-10/12">
-                <Input className="peer" onChange={handleInputChange} />
-                <div className="peer-focus-within:ring-1 peer-focus-within:ring-ring bg-black h-[36px] text-white px-5 flex items-center rounded-l-md">
-                    {t("search")}:
-                </div>
-            </div>
-        </div>
-        <div className="flex flex-col row-start-2 items-center sm:items-start h-full">
-        <Songs query={query} />
-        </div>
+    <div className="flex flex-col justify-center items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+      <div className="flex justify-center h-24 w-full fixed top-0 bg-white z-10">
+          <div className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse z-20 w-10/12">
+              <Input className="peer" onChange={handleInputChange} />
+              <div className="peer-focus-within:ring-1 peer-focus-within:ring-ring bg-black h-[36px] text-white px-5 flex items-center rounded-l-md">
+                  {t("search")}:
+              </div>
+          </div>
+      </div>
+      <div className="flex flex-col row-start-2 items-center sm:items-start h-full w-full pt-24">
+      <Songs query={query} />
+      </div>
     </div>
   );
 }

@@ -19,7 +19,7 @@ export function QueuedSongItem({id, title, artists, time, handleDel}: SongItemPr
             </div>
             <div className='flex items-center gap-2'>
                 <p className='hidden lg:block text-gray-400 text-sm px-2'>{time && new Date(time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
-                <Button onClick={() => handleDel(id)}>{t('delete')}</Button>
+                <Button variant="destructive" onClick={() => handleDel(id)}>{t('delete')}</Button>
             </div>
         </div>
     )

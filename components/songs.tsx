@@ -38,10 +38,11 @@ export function Songs({ query }: { query: string }) {
             ? data.title.substring(0, 40) + "..."
             : data.title,
         artists:
-          data.artists.length > 40
-            ? data.artists.substring(0, 40) + "..."
+          data.artists.length > 20
+            ? data.artists.substring(0, 20) + "..."
             : data.artists,
         status: data.status,
+        place: data.place,
       }));
     },
     {
@@ -63,13 +64,15 @@ export function Songs({ query }: { query: string }) {
 
   if (status === "loading") {
     return (
-      <div className="flex flex-col items-start w-full h-full">
-        {Array.from({ length: 20 }).map((_, index) => (
-          <Skeleton
-            key={index}
-            className="px-5 h-[100px] w-[300px] rounded-xl my-4"
-          />
-        ))}
+      <div className="flex flex-col items-start w-10/12 h-full">
+        <div className="flex flex-col w-full">
+          {Array.from({ length: 20 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              className="flex flex-col items-center px-5 gap-2 w-10/12 h-20 py-4 rounded-xl my-3"
+            />
+          ))}
+        </div>
       </div>
     );
   }
@@ -80,7 +83,7 @@ export function Songs({ query }: { query: string }) {
 
   return (
     <div className="flex flex-col items-start w-full h-full">
-      <ul>
+      <div className="flex flex-col items-center w-full">
         {data?.map((song: Song) => (
           <SongItem
             key={song.id}
@@ -88,9 +91,10 @@ export function Songs({ query }: { query: string }) {
             handleSubmit={handleSubmit}
             status={song.status}
             isFetching={isFetching}
+            place={song.place}
           />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
