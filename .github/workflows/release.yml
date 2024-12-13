@@ -1,35 +1,42 @@
-name: Build CTCD app on release
+name: Build mixify on release
 
 on:
   release:
     types: [created]
 
 env:
-  REGISTRY: ghcr.io/Nayrode
-  IMAGE_NAME: song-submit-front
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-image:
+  build:
+    name: Build and push image
     runs-on: ubuntu-latest
-    name: Build and push Docker image
     permissions:
-      contents: write
+      contents: read
       packages: write
-
+      attestations: write
+      id-token: write
+      
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ secrets.GITHUB_ACTOR }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v5
@@ -38,3 +45,24 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+  # edit-helm-version:
+  #   name: Edit Helm version
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #     attestations: write
+  #     id-token: write
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Update Helm app version
