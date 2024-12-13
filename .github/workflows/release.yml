@@ -1,8 +1,9 @@
 name: Build mixify on release
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
 
 env:
   REGISTRY: ghcr.io
@@ -17,7 +18,7 @@ jobs:
       packages: write
       attestations: write
       id-token: write
-      
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -50,19 +51,21 @@ jobs:
     name: Edit Helm version
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
       attestations: write
       id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha
 
@@ -73,4 +76,4 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git commit -m "Update app version to ${{ steps.meta.outputs.tags }}"
-          git push
+          git push origin ${{ github.ref_name }}
