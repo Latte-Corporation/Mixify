@@ -29,9 +29,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            {{- with .Values.env }}
-            {{- toYaml . | nindent 12 }}
-            {{- end }}
+            - name: NEXT_PUBLIC_BACKEND_URL
+              value: {{ .Values.env.NEXT_PUBLIC_BACKEND_URL }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
