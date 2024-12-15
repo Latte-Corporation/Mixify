@@ -4,10 +4,11 @@ import { PendingSongs } from "@/components/pending-component";
 import { QueueSongs } from "@/components/queue-component";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { env } from 'next-runtime-env';
 
 export default function Dashboard() {
   const t = useTranslations("dashboard");
-  const backendUrl = process.env.API_URL;
+  const backendUrl = env("NEXT_PUBLIC_BACKEND_URL");
 
   async function handleReset() {
     await axios.post(`${backendUrl}/songs/reset`);

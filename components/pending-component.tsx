@@ -8,10 +8,11 @@ import { useEffect } from "react";
 import { LoaderSpinner } from "./spinner";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { env } from "next-runtime-env";
 
 export function PendingSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
-  const backendUrl = process.env.API_URL;
+  const backendUrl = env("NEXT_PUBLIC_BACKEND_URL");
   const t = useTranslations("dashboard");
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { ReactQueryProvider } from '../react-query-provider';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/app/globals.css";
+import { PublicEnvScript } from 'next-runtime-env';
 
 const geistSans = localFont({
   src: "../(resources)/fonts/GeistVF.woff",
@@ -46,6 +47,9 @@ export default async function LocaleLayout({
  
   return (
     <html lang={locale}>
+      <head>
+        <PublicEnvScript />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} h-screen`}>
         <ReactQueryProvider>
           <NextIntlClientProvider messages={messages}>

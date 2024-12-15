@@ -6,10 +6,11 @@ import { QueuedSongItem } from "./queued-song-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { env } from "next-runtime-env";
 
 export function QueueSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
-  const backendUrl = process.env.API_URL;
+  const backendUrl = env("NEXT_PUBLIC_BACKEND_URL");
   const t = useTranslations("dashboard");
 
   const { status, data } = useQuery<Song[], Error>("queueSongs", async () => {
