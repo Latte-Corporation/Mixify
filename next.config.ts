@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
 
     return config;
   },
-  output: "standalone"
+  output: "standalone",
+  env: {
+    API_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  },
 };
 
 

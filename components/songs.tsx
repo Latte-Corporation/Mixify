@@ -18,7 +18,7 @@ export function Songs({
   setInCooldown: () => void
 }) {
   const queryClient = useQueryClient();
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const backendUrl = process.env.API_URL;
   const t = useTranslations("submit-page");
 
   useEffect(() => {

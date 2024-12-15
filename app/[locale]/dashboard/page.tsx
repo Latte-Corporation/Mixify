@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function Dashboard() {
   const t = useTranslations("dashboard");
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const backendUrl = process.env.API_URL;
 
   async function handleReset() {
     await axios.post(`${backendUrl}/songs/reset`);

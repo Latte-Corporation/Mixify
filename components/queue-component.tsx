@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 
 export function QueueSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const backendUrl = process.env.API_URL;
   const t = useTranslations("dashboard");
 
   const { status, data } = useQuery<Song[], Error>("queueSongs", async () => {

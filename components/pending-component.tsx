@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 
 export function PendingSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const backendUrl = process.env.API_URL;
   const t = useTranslations("dashboard");
 
   useEffect(() => {
