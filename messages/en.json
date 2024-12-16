@@ -8,7 +8,10 @@
     "search": "Search",
     "cooldown": "Time before next submission...",
     "no-song": "No song found",
-    "search-for-song": "Please use the search bar to find a song"
+    "search-for-song": "Please use the search bar to find a song",
+    "accepted": "Song accepted !",
+    "accepted-description": "Your song has been accepted and added to the queue. You will be notified when it is played.",
+    "waiting-time": "Estimated wait time"
   },
   "button": {
     "submit": "Submit",
