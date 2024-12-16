@@ -14,7 +14,7 @@ export function QueueSongs({ className }: { className?: string }) {
   const t = useTranslations("dashboard");
 
   const { status, data } = useQuery<Song[], Error>("queueSongs", async () => {
-    const response = await axios.get(`${backendUrl}/songs/queue`);
+    const response = await axios.get(`${backendUrl}/songs/queue`, {withCredentials:true});
     if (response.status !== 200) {
       throw new Error("Network response was not ok");
     }
@@ -33,7 +33,7 @@ export function QueueSongs({ className }: { className?: string }) {
   });
 
   function handleDel(id: string) {
-    axios.post(`${backendUrl}/songs/passed/` + id).then(() => {
+    axios.post(`${backendUrl}/songs/passed/` + id, null, {withCredentials:true}).then(() => {
       queryClient.invalidateQueries("pendingSongs");
       queryClient.invalidateQueries("queueSongs");
     });

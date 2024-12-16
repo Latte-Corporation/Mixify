@@ -16,7 +16,7 @@ export function PendingSongs({ className }: { className?: string }) {
   const t = useTranslations("dashboard");
 
   useEffect(() => {
-    const eventSource = new EventSource(`${backendUrl}/songs/sse`);
+    const eventSource = new EventSource(`${backendUrl}/songs/sse`, {withCredentials:true});
 
     eventSource.onmessage = () => {
       queryClient.invalidateQueries("pendingSongs");
@@ -30,7 +30,7 @@ export function PendingSongs({ className }: { className?: string }) {
   const { status, data, error } = useQuery<Song[], Error>(
     "pendingSongs",
     async () => {
-      const response = await axios.get(`${backendUrl}/songs/pending`);
+      const response = await axios.get(`${backendUrl}/songs/pending`, {withCredentials:true});
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
@@ -54,14 +54,14 @@ export function PendingSongs({ className }: { className?: string }) {
   );
 
   function handleQueue(id: string) {
-    axios.post(`${backendUrl}/songs/approve/` + id).then(() => {
+    axios.post(`${backendUrl}/songs/approve/` + id, null, {withCredentials:true}).then(() => {
       queryClient.invalidateQueries("pendingSongs");
       queryClient.invalidateQueries("queueSongs");
     });
   }
 
   function handleReject(id: string) {
-    axios.post(`${backendUrl}/songs/reject/` + id).then(() => {
+    axios.post(`${backendUrl}/songs/reject/` + id, null, {withCredentials:true}).then(() => {
       queryClient.invalidateQueries("pendingSongs");
     });
   }

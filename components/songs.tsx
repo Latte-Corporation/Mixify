@@ -23,7 +23,7 @@ export function Songs({
   const t = useTranslations("submit-page");
 
   useEffect(() => {
-    const eventSource = new EventSource(`${backendUrl}/songs/status`);
+    const eventSource = new EventSource(`${backendUrl}/songs/status`, {withCredentials:true});
 
     eventSource.onmessage = () => {
       queryClient.invalidateQueries(["songs", query]);
@@ -38,7 +38,7 @@ export function Songs({
     ["songs", query],
     async () => {
       if (!query) return [];
-      const response = await axios.get(`${backendUrl}/spotify/search/` + query);
+      const response = await axios.get(`${backendUrl}/spotify/search/` + query, {withCredentials:true});
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
@@ -63,7 +63,7 @@ export function Songs({
 
   async function handleSubmit(id: string) {
     try {
-      const response = await axios.post(`${backendUrl}/songs/submit/` + id);
+      const response = await axios.post(`${backendUrl}/songs/submit/` + id, null, {withCredentials:true});
       if (response.status !== 200 && response.status !== 201) {
         throw new Error("Network response was not ok");
       }

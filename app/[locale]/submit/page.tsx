@@ -9,23 +9,54 @@ import { Progress } from "@/components/ui/progress";
 import { Dialog } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { useEnvContext } from "next-runtime-env";
+import Cookies from "js-cookie";
 
 export default function SubmitPage() {
   const [search, setSearch] = useState<string>("");
   const [query, setQuery] = useState<string>("");
   const [progress, setProgress] = useState<number>(600);
+  const [queueNumber, setQueueNumber] = useState<number>(0);
+  const [dialogOpened, setDialogOpened] = useState<boolean>(false);
+  const [confetti, setConfetti] = useState<boolean>(false);
   const confettiRef = useRef<ConfettiRef>(null);
+  const [passKey, setPassKey] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    confettiRef.current?.fire({});
+    const key = Cookies.get("passKey");
+    setPassKey(key);
+  }, []);
+
+  const t = useTranslations("submit-page");
+  const { NEXT_PUBLIC_BACKEND_URL: backendUrl } = useEnvContext();
+
+  useEffect(() => {
     const savedTimestamp = localStorage.getItem("progressTimestamp");
     if (savedTimestamp) {
       const elapsedSeconds = Math.floor((Date.now() - parseInt(savedTimestamp, 10)) / 1000);
       setProgress(Math.min(elapsedSeconds, 600));
     }
   }, []);
-  const t = useTranslations("submit-page");
+
+  useEffect(() => {
+    if(!passKey) return;
+    const eventSource = new EventSource(`${backendUrl}/songs/events/` + passKey, {withCredentials:true});
+
+    eventSource.onmessage = (data) => {
+      const parsedData = JSON.parse(data.data);
+      setQueueNumber(parsedData.queueNumber);
+      setDialogOpened(true);
+      setConfetti(true);
+      setTimeout(() => {
+        setConfetti(false);
+      }, 5000);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, [backendUrl, passKey]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -66,16 +97,22 @@ export default function SubmitPage() {
     return `${minutes}m ${onlySeconds}s`;
   }
 
+  const confettiMemo = useMemo(() => (
+    confetti &&
+    <Confetti
+      ref={confettiRef}
+      className="absolute left-0 top-0 z-[51] size-full"
+      options={{
+        origin: { y: 1 },
+      }}
+    />
+  ), [confetti]);
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
-      <Confetti
-        ref={confettiRef}
-        className="fixed size-full z-[100]"
-        options={{
-          origin: { y: 1 },
-        }}
-      />
-      <Dialog open={false}>
+      {confettiMemo}
+      
+      <Dialog open={dialogOpened} onOpenChange={setDialogOpened}>
         <DialogContent className="w-10/12 rounded-lg z-50">
           <DialogHeader>
             <DialogTitle>{t("accepted")}</DialogTitle>
@@ -91,14 +128,14 @@ export default function SubmitPage() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex flex-col justify-center gap-2">
-            <p className="text-sm">{t("waiting-time")}: <b>5mins</b></p>
-            <Button type="submit">Ok</Button>
+            <p className="text-sm">{t("waiting-time")}: <b>{queueNumber}mins</b></p>
+            <Button type="submit" onClick={()=>setDialogOpened(false)}>Ok</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
       <div className="flex justify-center h-24 w-full fixed top-0 bg-white z-10">
           <div className="row-start-1 flex items-center justify-center fixed top-7 flex-row-reverse z-20 w-10/12">
-              <Input className="peer" onChange={handleInputChange} />
+              <Input className="peer rounded-l-none" onChange={handleInputChange} />
               <div className="peer-focus-within:ring-1 peer-focus-within:ring-ring bg-black h-[36px] text-white px-5 flex items-center rounded-l-md">
                   {t("search")}:
               </div>
