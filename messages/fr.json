@@ -2,7 +2,10 @@
   "homepage": {
     "title": "Bienvenue",
     "description": "Appuyez sur le bouton ci-dessous pour soumettre une chanson, vous serez notifié lorsqu'elle sera ajoutée à la playlist.",
-    "submit": "Soumettre une musique"
+    "submit": "Soumettre une musique",
+    "passkey": "Identifiant",
+    "passkey-description": "Veuillez entrer votre identifiant de soirée.",
+    "enter": "Entrer"
   },
   "submit-page": {
     "search": "Rechercher",

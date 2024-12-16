@@ -2,7 +2,10 @@
   "homepage": {
     "title": "Welcome",
     "description": "Press the button below to submit a song, you will be notified when it is added to the playlist.",
-    "submit": "Submit a song"
+    "submit": "Submit a song",
+    "passkey": "Passkey",
+    "passkey-description": "Please enter your party passkey.",
+    "enter": "Enter"
   },
   "submit-page": {
     "search": "Search",

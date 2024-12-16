@@ -11,7 +11,7 @@ export default function Dashboard() {
   const { NEXT_PUBLIC_BACKEND_URL: backendUrl } = useEnvContext();
 
   async function handleReset() {
-    await axios.post(`${backendUrl}/songs/reset`);
+    await axios.post(`${backendUrl}/songs/reset`, null, { withCredentials: true });
   }
 
   return (
