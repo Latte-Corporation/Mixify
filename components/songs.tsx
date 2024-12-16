@@ -7,7 +7,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { Song } from "../app/(resources)/shared/song";
 import { SkeletonSubmit } from "./skeleton-submit-song";
 import { SongItem } from "./song-component";
-import { env } from "next-runtime-env";
+import { useEnvContext } from "next-runtime-env";
 
 export function Songs({ 
   query,
@@ -19,7 +19,7 @@ export function Songs({
   setInCooldown: () => void
 }) {
   const queryClient = useQueryClient();
-  const backendUrl = env("NEXT_PUBLIC_BACKEND_URL");
+  const { NEXT_PUBLIC_BACKEND_URL: backendUrl } = useEnvContext();
   const t = useTranslations("submit-page");
 
   useEffect(() => {

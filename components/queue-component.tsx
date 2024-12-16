@@ -1,16 +1,16 @@
 "use client";
-import { useQuery, useQueryClient } from "react-query";
-import { Song } from "../app/(resources)/shared/song";
-import axios from "axios";
-import { QueuedSongItem } from "./queued-song-component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import { useTranslations } from "next-intl";
-import { env } from "next-runtime-env";
+import { useEnvContext } from "next-runtime-env";
+import { useQuery, useQueryClient } from "react-query";
+import { Song } from "../app/(resources)/shared/song";
+import { QueuedSongItem } from "./queued-song-component";
 
 export function QueueSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
-  const backendUrl = env("NEXT_PUBLIC_BACKEND_URL");
+  const { NEXT_PUBLIC_BACKEND_URL: backendUrl } = useEnvContext();
   const t = useTranslations("dashboard");
 
   const { status, data } = useQuery<Song[], Error>("queueSongs", async () => {
@@ -41,7 +41,7 @@ export function QueueSongs({ className }: { className?: string }) {
 
   if (status === "loading") {
     return (
-      <div className={cn("w-[600px]",className)}>
+      <div className={cn("w-[600px]", className)}>
         <h2 className="text-2xl font-bold pb-3">{t("queued-list")}</h2>
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton

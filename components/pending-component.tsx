@@ -1,18 +1,18 @@
 "use client";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+import axios from "axios";
+import { useTranslations } from "next-intl";
+import { useEnvContext } from "next-runtime-env";
+import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { Song } from "../app/(resources)/shared/song";
-import axios from "axios";
 import { PendingSongItem } from "./pending-song-component";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect } from "react";
 import { LoaderSpinner } from "./spinner";
-import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
-import { env } from "next-runtime-env";
 
 export function PendingSongs({ className }: { className?: string }) {
   const queryClient = useQueryClient();
-  const backendUrl = env("NEXT_PUBLIC_BACKEND_URL");
+  const { NEXT_PUBLIC_BACKEND_URL: backendUrl } = useEnvContext();
   const t = useTranslations("dashboard");
 
   useEffect(() => {
@@ -68,7 +68,9 @@ export function PendingSongs({ className }: { className?: string }) {
 
   if (status === "loading") {
     return (
-      <div className={cn("w-11/12 lg:w-[600px] flex flex-col h-full", className)}>
+      <div
+        className={cn("w-11/12 lg:w-[600px] flex flex-col h-full", className)}
+      >
         <h2 className="text-2xl font-bold pb-3">{t("pending-list")}</h2>
         {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
@@ -88,14 +90,14 @@ export function PendingSongs({ className }: { className?: string }) {
     <div className={cn("w-11/12 lg:w-[600px] flex flex-col h-full", className)}>
       <h2 className="text-2xl font-bold pb-3">{t("pending-list")}</h2>
       {data?.map((song) => (
-          <PendingSongItem
-            key={song.id}
-            {...song}
-            handleQueue={handleQueue}
-            handleReject={handleReject}
-            time={song.submittedAt}
-            link={song.link}
-          />
+        <PendingSongItem
+          key={song.id}
+          {...song}
+          handleQueue={handleQueue}
+          handleReject={handleReject}
+          time={song.submittedAt}
+          link={song.link}
+        />
       ))}
       {data?.length === 0 && (
         <div className="flex gap-3 py-4">

@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/app/globals.css";
 import { PublicEnvScript } from 'next-runtime-env';
+import { PublicEnvProvider } from 'next-runtime-env';
 
 const geistSans = localFont({
   src: "../(resources)/fonts/GeistVF.woff",
@@ -51,11 +52,13 @@ export default async function LocaleLayout({
         <PublicEnvScript />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} h-screen`}>
-        <ReactQueryProvider>
-          <NextIntlClientProvider messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </ReactQueryProvider>
+        <PublicEnvProvider>
+          <ReactQueryProvider>
+            <NextIntlClientProvider messages={messages}>
+              {children}
+            </NextIntlClientProvider>
+          </ReactQueryProvider>
+        </PublicEnvProvider>
       </body>
     </html>
   );
