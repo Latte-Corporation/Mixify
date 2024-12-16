@@ -16,6 +16,7 @@ import { useTranslations } from "next-intl";
 import { useEnvContext } from "next-runtime-env";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 export default function Home() {
   const [error, setError] = useState<string | null>(null);
@@ -42,6 +43,15 @@ export default function Home() {
     }
   }
 
+  function handleOpenDialog(bool: boolean) {
+    const key = Cookies.get("passKey");
+    if (key) {
+      router.push(`/${locale}/submit`);
+    } else {
+      setIsDialogOpen(bool);
+    }
+  }
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -49,9 +59,9 @@ export default function Home() {
           {t("title")}
         </h1>
         <p className="text-center sm:text-left">{t("description")}</p>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog open={isDialogOpen} onOpenChange={handleOpenDialog}>
           <DialogTrigger asChild>
-            <Button onClick={() => setIsDialogOpen(true)}>{t("submit")}</Button>
+            <Button onClick={() => handleOpenDialog(true)}>{t("submit")}</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
