@@ -9,14 +9,15 @@ import { Progress } from "@/components/ui/progress";
 export default function SubmitPage() {
   const [search, setSearch] = useState<string>("");
   const [query, setQuery] = useState<string>("");
-  const [progress, setProgress] = useState<number>(() => {
+  const [progress, setProgress] = useState<number>(600);
+
+  useEffect(() => {
     const savedTimestamp = localStorage.getItem("progressTimestamp");
     if (savedTimestamp) {
       const elapsedSeconds = Math.floor((Date.now() - parseInt(savedTimestamp, 10)) / 1000);
-      return Math.min(elapsedSeconds, 600);
+      setProgress(Math.min(elapsedSeconds, 600));
     }
-    return 600;
-  });
+  }, []);
   const t = useTranslations("submit-page");
 
   useEffect(() => {
@@ -44,9 +45,11 @@ export default function SubmitPage() {
   }, []);
 
   function setInCooldown() {
-    const timestamp = Date.now();
-    localStorage.setItem("progressTimestamp", timestamp.toString());
-    setProgress(0);
+    if (typeof window !== "undefined") {
+      const timestamp = Date.now();
+      localStorage.setItem("progressTimestamp", timestamp.toString());
+      setProgress(0);
+    }
   }
 
   function secondsToText(seconds: number) {
