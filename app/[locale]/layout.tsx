@@ -6,8 +6,7 @@ import { ReactQueryProvider } from '../react-query-provider';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/app/globals.css";
-import { PublicEnvScript } from 'next-runtime-env';
-import { PublicEnvProvider } from 'next-runtime-env';
+import { PublicEnvScript, PublicEnvProvider } from 'next-runtime-env';
 
 const geistSans = localFont({
   src: "../(resources)/fonts/GeistVF.woff",

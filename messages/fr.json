@@ -8,7 +8,10 @@
     "search": "Rechercher",
     "cooldown": "Temps avant prochaine soumission...",
     "no-song": "Aucune musique trouvée",
-    "search-for-song": "Veuillez utiliser la barre de recherche pour trouver une musique"
+    "search-for-song": "Veuillez utiliser la barre de recherche pour trouver une musique",
+    "accepted": "Musique acceptée !",
+    "accepted-description": "Votre musique a été acceptée et ajoutée à la file d'attente. Vous serez notifié lorsqu'elle sera jouée.",
+    "waiting-time": "Temps d'attente estimé"
   },
   "button": {
     "submit": "Soumettre",
