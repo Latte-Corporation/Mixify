@@ -31,15 +31,25 @@ export default function Home() {
     const passKey = document.getElementById("name") as HTMLInputElement;
     setIsDialogOpen(false);
     try {
-      await axios.post(`${backendUrl}/`, {
-        passKey: passKey.value,
-      }, {
-        withCredentials: true,
-      });
+      await axios.post(
+        `${backendUrl}/`,
+        {
+          passKey: passKey.value,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       router.push(`/${locale}/submit`);
-    }
-    catch {
+    } catch {
       setError("Invalid passkey");
+    }
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission reloading the page
+      handleSubmit();
     }
   }
 
@@ -64,27 +74,33 @@ export default function Home() {
             <Button onClick={() => handleOpenDialog(true)}>{t("submit")}</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>{t("passkey")}</DialogTitle>
-              <DialogDescription>{t("passkey-description")}</DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  {t("passkey")}
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="31584394"
-                  className="col-span-3"
-                />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
+            >
+              <DialogHeader>
+                <DialogTitle>{t("passkey")}</DialogTitle>
+                <DialogDescription>{t("passkey-description")}</DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    {t("passkey")}
+                  </Label>
+                  <Input
+                    id="name"
+                    placeholder="31584394"
+                    className="col-span-3"
+                    onKeyDown={handleKeyDown}
+                  />
+                </div>
               </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit" onClick={handleSubmit}>
-                {t("enter")}
-              </Button>
-            </DialogFooter>
+              <DialogFooter>
+                <Button type="submit">{t("enter")}</Button>
+              </DialogFooter>
+            </form>
           </DialogContent>
         </Dialog>
         {error && <p className="text-red-500">{error}</p>}
