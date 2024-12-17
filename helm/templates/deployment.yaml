@@ -32,7 +32,7 @@ spec:
             - name: NEXT_PUBLIC_BACKEND_URL
               value: {{ .Values.env.NEXT_PUBLIC_BACKEND_URL }}
             - name: NEXT_PUBLIC_COOLDOWN
-              value: {{ .Values.env.NEXT_PUBLIC_COOLDOWN }}
+              value: {{ quote .Values.env.NEXT_PUBLIC_COOLDOWN }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
