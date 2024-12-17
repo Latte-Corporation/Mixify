@@ -12,6 +12,7 @@ fullnameOverride: ""
 
 env:
   NEXT_PUBLIC_BACKEND_URL: ""
+  NEXT_PUBLIC_COOLDOWN: 600
 
 service:
   type: ClusterIP

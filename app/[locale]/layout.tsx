@@ -20,8 +20,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Song Submit",
-  description: "An app to submit songs",
+  title: "Mixify",
+  description: "Mixify is a web app designed to allow crowd to submit songs to a DJ.",
 };
 
 

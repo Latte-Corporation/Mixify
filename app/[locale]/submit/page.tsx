@@ -7,16 +7,18 @@ import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTit
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Dialog } from "@radix-ui/react-dialog";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { useEffect, useRef, useState, useMemo } from "react";
-import { useEnvContext } from "next-runtime-env";
 import Cookies from "js-cookie";
+import { useTranslations } from "next-intl";
+import { useEnvContext } from "next-runtime-env";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function SubmitPage() {
+  const { NEXT_PUBLIC_BACKEND_URL: backendUrl, NEXT_PUBLIC_COOLDOWN } = useEnvContext();
+  const cooldown = NEXT_PUBLIC_COOLDOWN ? parseInt(NEXT_PUBLIC_COOLDOWN, 10): 600;
   const [search, setSearch] = useState<string>("");
   const [query, setQuery] = useState<string>("");
-  const [progress, setProgress] = useState<number>(600);
+  const [progress, setProgress] = useState<number>(cooldown);
   const [queueNumber, setQueueNumber] = useState<number>(0);
   const [dialogOpened, setDialogOpened] = useState<boolean>(false);
   const [confetti, setConfetti] = useState<boolean>(false);
@@ -29,15 +31,14 @@ export default function SubmitPage() {
   }, []);
 
   const t = useTranslations("submit-page");
-  const { NEXT_PUBLIC_BACKEND_URL: backendUrl } = useEnvContext();
 
   useEffect(() => {
     const savedTimestamp = localStorage.getItem("progressTimestamp");
     if (savedTimestamp) {
       const elapsedSeconds = Math.floor((Date.now() - parseInt(savedTimestamp, 10)) / 1000);
-      setProgress(Math.min(elapsedSeconds, 600));
+      setProgress(Math.min(elapsedSeconds, cooldown));
     }
-  }, []);
+  }, [cooldown]);
 
   useEffect(() => {
     if(!passKey) return;
@@ -75,12 +76,12 @@ export default function SubmitPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((progress) => {
-        const newProgress = progress >= 600 ? 600 : progress + 1;
+        const newProgress = progress >= cooldown ? cooldown : progress + 1;
         return newProgress;
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [cooldown]);
 
   function setInCooldown() {
     if (typeof window !== "undefined") {
@@ -91,7 +92,7 @@ export default function SubmitPage() {
   }
 
   function secondsToText(seconds: number) {
-    const remainingSeconds = 600 - seconds;
+    const remainingSeconds = cooldown - seconds;
     const minutes = Math.floor(remainingSeconds / 60);
     const onlySeconds = remainingSeconds % 60;
     return `${minutes}m ${onlySeconds}s`;
@@ -142,16 +143,16 @@ export default function SubmitPage() {
           </div>
       </div>
       <div className="flex flex-col row-start-2 items-center h-full w-full">
-        <Songs query={query} inCooldown={progress < 600} setInCooldown={setInCooldown}/>
+        <Songs query={query} inCooldown={progress < cooldown} setInCooldown={setInCooldown}/>
       </div>
       {
-        progress < 600 &&
+        progress < cooldown &&
         <footer className="fixed bottom-0 w-10/12 bg-white h-20 flex flex-col gap-3 items-center justify-start py-4">
           <div className="flex flex-row items-center justify-between w-full">
             <p className="text-sm">{t("cooldown")}</p>
             <p className="text-sm text-gray-400">{secondsToText(progress)}</p>
           </div>
-          <Progress value={Math.floor(progress / 6)}/>
+          <Progress value={progress*100/cooldown}/>
         </footer>
       }
     </div>
