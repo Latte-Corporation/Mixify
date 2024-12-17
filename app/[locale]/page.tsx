@@ -73,7 +73,7 @@ export default function Home() {
           <DialogTrigger asChild>
             <Button onClick={() => handleOpenDialog(true)}>{t("submit")}</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="w-10/12 rounded-md sm:max-w-[425px]">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
