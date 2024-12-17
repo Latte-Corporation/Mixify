@@ -36,5 +36,11 @@
     "queued-list": "Musiques en file d'attente",
     "waiting": "En attente de soumission de musiques...",
     "reset": "Réinitialiser la session"
+  },
+  "login": {
+    "title": "Connexion",
+    "description": "Veuillez vous connecter pour accéder à l'interface de gestion de la soirée.",
+    "password": "Mot de passe",
+    "submit": "Se connecter"
   }
 }

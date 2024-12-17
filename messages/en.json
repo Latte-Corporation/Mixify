@@ -36,5 +36,11 @@
     "queued-list": "Queued songs",
     "waiting": "Waiting for songs to be submitted...",
     "reset": "Reset the session"
+  },
+  "login": {
+    "title": "Login",
+    "description": "Please login to access the party management interface.",
+    "password": "Password",
+    "submit": "Login"
   }
 }
