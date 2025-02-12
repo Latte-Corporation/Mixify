@@ -4,6 +4,8 @@ This web app is a participative music app where the crowd can submit
 songs to the DJ in a party. It is open source and open to contributions.
 You will need to deploy the app by yourself, we do not provide hosting.
 
+The backend is available here: https://github.com/Latte-Corporation/Mixify-api
+
 ## How to deploy it
 
 ### The easy way
