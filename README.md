@@ -39,4 +39,6 @@ You can contribute by submitting a pull request. We will review it and
 merge it if it fits the project. You can also open an issue if you have
 a feature request or a bug to report.
 
+Contact: contact@lattecorp.dev
+
 
