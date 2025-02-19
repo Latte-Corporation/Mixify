@@ -32,7 +32,7 @@ export default function Home() {
     setIsDialogOpen(false);
     try {
       await axios.post(
-        `${backendUrl}/`,
+        `${backendUrl}/auth/`,
         {
           passKey: passKey.value,
         },
